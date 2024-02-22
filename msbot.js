@@ -1,7 +1,7 @@
 // Minesweeper Automation Bot
 // This script automates playing the Minesweeper game by analyzing the game state and making moves.
 
-(function () {
+(async function () {
   // Utilities
   const selectElement = (selector, parent = document) => parent.querySelector(selector);
 
@@ -15,6 +15,11 @@
     }
     get offsetX() { return this._offsetX ?? super.offsetX; }
     get offsetY() { return this._offsetY ?? super.offsetY; }
+  }
+
+  // Sleep function to pause execution for a given duration in milliseconds
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   // Utility function for generating combinations
@@ -39,7 +44,7 @@
     }
 
     // Initialize game settings and state
-    initGame() {
+    async initGame() {
       this.canvas = selectElement('canvas');
       this.context = this.canvas.getContext('2d', { willReadFrequently: true });
       this.difficultySettings = [[10, 8, 10], [18, 14, 40], [24, 20, 99]];
@@ -59,18 +64,20 @@
         Array(this.boardHeight).fill(this.tileStatus.UNKNOWN));
     }
 
-    // Determine the game difficulty
+    // Determine the game difficulty (placeholder implementation)
     getDifficultyIndex() {
-      // Implementation to determine difficulty
-      // Returns 0 for Easy, 1 for Medium, 2 for Hard
+      // Placeholder implementation, adjust based on your game's UI
     }
 
-    // Main logic to solve the Minesweeper game
-    solveGame() {
-      // Implementation of solving logic
+    // Main logic to solve the Minesweeper game, marked as async to use await
+    async solveGame() {
+      // Example usage of sleep function within an iteration
+      for (let i = 0; i < 10; i++) {
+        console.log(`Iteration ${i}`);
+        await sleep(1000); // Waits for 1 second
+        // Logic to perform after each wait...
+      }
     }
-
-    // Additional utility methods like clicking tiles, checking game over, etc.
   }
 
   // Load LogicJS for logical operations and solving
@@ -82,9 +89,9 @@
   }
 
   // Start the bot after loading necessary libraries
-  loadLogicJS(() => {
+  loadLogicJS(async () => {
     const minesweeperGame = new Game();
-    minesweeperGame.solveGame();
+    await minesweeperGame.solveGame();
   });
 
 })();
